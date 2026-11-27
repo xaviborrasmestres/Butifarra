@@ -32,6 +32,9 @@ header{display:flex;align-items:center;gap:8px;justify-content:space-between;fon
 #trump{flex-direction:column;gap:1px !important}
 #trump .tl{font-size:10px;letter-spacing:2px;color:#ffe08a;opacity:.9;font-weight:800}
 #trump .tv{display:flex;align-items:center;gap:6px;background:#0007;border:2px solid var(--gold);border-radius:14px;padding:2px 12px 2px 6px;font-size:18px;font-weight:900;color:#fff;box-shadow:0 0 12px #f6c50066}
+#trump .ch{font-size:11px;font-weight:700;margin-top:1px;padding:1px 8px;border-radius:9px;background:#0006}
+#trump .ch.us{color:#8dffa6}#trump .ch.them{color:#ffb0a0}
+.chb{display:inline-block;background:var(--gold);color:#000;border-radius:8px;padding:0 6px;font-size:10px;font-weight:900;margin-left:4px;vertical-align:middle}
 #trump .tv svg{width:32px;height:32px;filter:drop-shadow(0 1px 2px #000)}
 #tmark{position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%);opacity:.2;pointer-events:none;filter:grayscale(.2)}
 #tmark svg{width:100%;height:100%}
@@ -42,7 +45,7 @@ header{display:flex;align-items:center;gap:8px;justify-content:space-between;fon
 @keyframes annin{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}25%{transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(.9)}}
 .badge{background:var(--gold);color:#000;border-radius:8px;padding:0 6px;font-size:12px;font-weight:800;margin-left:4px}
 .ibtn{background:#0006;border:0;color:#fff;border-radius:10px;padding:8px 10px;font-size:13px}
-#table{display:grid;grid-template-columns:62px 1fr 62px;grid-template-rows:auto 252px;gap:4px;margin-top:2px}
+#table{display:grid;grid-template-columns:62px 1fr 62px;grid-template-rows:auto clamp(196px,29vh,250px);gap:4px;margin-top:2px}
 .seat{text-align:center;font-size:12px;opacity:.9}
 .seat .mini{box-shadow:0 0 0 2px #2a1a0a;width:34px;margin:2px auto 0;aspect-ratio:5/7;border-radius:5px;border:1px solid #fff;background:repeating-linear-gradient(90deg,#f6c500 0 4px,#c8102e 4px 8px);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;text-shadow:0 1px 2px #000}
 .seat.turn .nm2{color:var(--gold);font-weight:800}
@@ -53,21 +56,23 @@ header{display:flex;align-items:center;gap:8px;justify-content:space-between;fon
 .slot{position:absolute;width:72px}
 #c0{bottom:0;left:50%;transform:translateX(-50%)}
 #c2{top:0;left:50%;transform:translateX(-50%)}
-#c1{right:0;top:80px}
-#c3{left:0;top:80px}
+#c1{right:0;top:32%}
+#c3{left:0;top:32%}
 .card{position:relative;border-radius:8px;box-shadow:0 1px 3px #0007;aspect-ratio:5/7;user-select:none;width:100%;line-height:0}
 .card svg{width:100%;height:100%;display:block}
 .card.t{box-shadow:0 0 0 3px #f6c500,0 0 10px #f6c500aa,0 1px 3px #0007}
 .card.legal{outline:3px solid var(--gold);transform:translateY(-6px);cursor:pointer}
-.card.dim{opacity:.4}
+.card.dim{opacity:.6;filter:saturate(.7) brightness(.92)}
 .card.win{box-shadow:0 0 0 3px #7cff9e,0 0 12px #7cff9e}
-#msg{min-height:34px;text-align:center;font-size:14px;margin:6px 0 2px;padding:0 4px}
-#actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:46px;margin-bottom:4px}
+#msg{min-height:30px;text-align:center;font-size:14px;margin:2px 0 0;padding:0 4px}
+#actions:empty{display:none}
+#actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:40px;margin-bottom:0}
 #actions .ttl{width:100%;text-align:center;font-size:13px;opacity:.85}
 .btn{background:var(--gold);color:#000;border:0;border-radius:12px;padding:10px 14px;font-weight:800;font-size:15px;display:flex;align-items:center;gap:6px}
 .btn.sec{background:#ffffff26;color:#fff}
 .btn svg{width:20px;height:20px}
-#hand{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;padding:10px 2px 2px}
+#hand{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px 0;padding:6px 9px 2px 2px}
+#hand .card{width:calc(100% + 8px)}
 #pv{position:fixed;display:none;z-index:7;pointer-events:auto;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 8px 14px #000c);animation:pvin .18s ease-out}
 #pv svg{width:100%;display:block}
 #pv .hint{position:absolute;left:50%;bottom:-14px;transform:translateX(-50%);white-space:nowrap;background:var(--gold);color:#000;font-weight:800;font-size:13px;line-height:1;padding:8px 14px;border-radius:14px;box-shadow:0 3px 8px #000a}
@@ -89,7 +94,8 @@ body[data-felt=clar] .seat .nm2{color:#2a1a0a}
 body[data-felt=clar] #msg{color:#fff}
 body[data-back=rajola] .seat .mini,body[data-back=rajola] .flyback{background:var(--tile) !important;background-size:13px 13px !important}
 body[data-back=sobri] .seat .mini,body[data-back=sobri] .flyback{background:repeating-linear-gradient(45deg,#4a0f1c 0 3px,#661a2b 3px 6px) !important}
-body.big #hand{grid-template-columns:repeat(4,1fr);gap:7px}
+body.big #hand{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px 0;padding-right:16px}
+body.big #hand .card{width:calc(100% + 10px)}
 .sc small{display:block;font-size:11px;opacity:.85;min-height:13px}
 .sc.pulse{animation:pulse .55s}
 @keyframes pulse{40%{transform:scale(1.18);background:#2ea44f}}
@@ -115,7 +121,7 @@ body.big #hand{grid-template-columns:repeat(4,1fr);gap:7px}
 .tc small{font-size:10px;color:#444;display:block;margin-top:2px}
 .trow.big .tc{width:66px}
 </style>
-<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Butifarra"><meta name="theme-color" content="#1c0a10"></head>
+<link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Butifarra"><meta name="theme-color" content="#1c0a10"></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3a6"/><stop offset=".5" stop-color="#f2c230"/><stop offset="1" stop-color="#a87206"/></linearGradient>
@@ -177,13 +183,20 @@ const RNAME={1:'As',9:'Manilla',10:'Sota',11:'Cavall',12:'Rei'};
 const NAMES=['Tu','Pere','Montse','Jordi'];
 const COL={oros:'#a67800',copes:'#c42d27',espases:'#2c5fa8',bastos:'#2a7d46'};
 const OUT='#2a1a0a';
+const FLC={g:['#4f7d1a','#9dc23a','#eadd55'],r:['#8f1414','#d93a1f','#f8c533'],y:['#8c7a1c','#cdb736','#f1e56a']};
+const FLD='M-.085 -.5Q0 -.54 .085 -.5C.1 -.38.1 -.28.13 -.18C.15 -.1.24 -.06.27 .06C.3 .2.27 .36.19 .43C.11 .5.06 .52 0 .52C-.06 .52-.11 .5-.19 .43C-.27 .36-.3 .2-.27 .06C-.24 -.06-.15 -.1-.13 -.18C-.1 -.28-.1 -.38-.085 -.5Z';
+function flame(x,y,len,ang,c){
+  const k=FLC[c];
+  const kn=[[.2,.0,.04],[-.19,.12,.036],[.22,.27,.04],[-.1,.34,.03],[.07,-.3,.028]].map(([a,b,r])=>`<circle cx="${a}" cy="${b}" r="${r}" fill="${k[0]}" stroke="#2a1a0a" stroke-width=".012"/>`).join('');
+  return `<g transform="translate(${x} ${y}) rotate(${ang}) scale(${len})"><path d="${FLD}" fill="${k[0]}" stroke="#2a1a0a" stroke-width=".024" stroke-linejoin="round"/><path d="${FLD}" transform="translate(0 .04) scale(.72 .86)" fill="${k[1]}"/><path d="${FLD}" transform="translate(-.02 .08) scale(.34 .62)" fill="${k[2]}"/>${kn}<path d="M-.14 .02C-.18 .14-.15 .27-.07 .36" stroke="#fff" stroke-opacity=".5" stroke-width=".03" fill="none" stroke-linecap="round"/><path d="M-.05 -.42V-.2M.04 -.4L.05 -.24" stroke="${k[0]}" stroke-width=".02" stroke-linecap="round"/></g>`;
+}
 const st=`stroke="${OUT}" stroke-width="1.1" stroke-linejoin="round"`;
 const PIPS={
  oros:(()=>{let rays='';for(let i=0;i<16;i++){const a=i*Math.PI/8,c=Math.cos(a),s=Math.sin(a);rays+=`<path d="M${(12+3.9*c).toFixed(2)} ${(12+3.9*s).toFixed(2)}L${(12+7.5*c).toFixed(2)} ${(12+7.5*s).toFixed(2)}"/>`}
   return `<circle cx="12" cy="12" r="11.3" fill="url(#gCoinRim)" stroke="#3f2800" stroke-width="1.1"/><circle cx="12" cy="12" r="9.9" fill="none" stroke="#6b4600" stroke-width=".55" stroke-dasharray=".7 .9"/><circle cx="12" cy="12" r="8.5" fill="url(#gCoin)" stroke="#6b4600" stroke-width=".7"/><g stroke="#b3770f" stroke-width=".5" stroke-linecap="round">${rays}</g><circle cx="12" cy="12" r="3.9" fill="url(#gCoinRim)" stroke="#6b4600" stroke-width=".6"/><rect x="9.8" y="9.9" width="4.4" height="4.2" rx=".5" fill="#f6c500" stroke="#6b4600" stroke-width=".4"/><g fill="#c8102e"><rect x="10.29" y="9.9" width=".49" height="4.2"/><rect x="11.27" y="9.9" width=".49" height="4.2"/><rect x="12.25" y="9.9" width=".49" height="4.2"/><rect x="13.23" y="9.9" width=".49" height="4.2"/></g><path d="M4.8 7.2A8.3 8.3 0 0 1 11 3.7" stroke="#fffbd8" stroke-width=".9" fill="none" opacity=".85" stroke-linecap="round"/>`})(),
  copes:'<path d="M3.3 2.8h17.4c.3 3.4-.6 6.2-2.8 8.2-1.5 1.4-3.6 2.4-5.9 2.6-2.3-.2-4.4-1.2-5.9-2.6C3.9 9 3 6.2 3.3 2.8z" fill="url(#gCup)" stroke="#4a1608" stroke-width="1"/><rect x="2.8" y="1.6" width="18.4" height="2.8" rx="1.2" fill="url(#gGold)" stroke="#4a1608" stroke-width=".8"/><path d="M7 5.8c3 2.6 7 2.6 10 0" stroke="#f2c230" stroke-width=".9" fill="none"/><circle cx="12" cy="7.6" r="1.25" fill="#2d63b8" stroke="#f2c230" stroke-width=".6"/><path d="M6.6 6.4c.2 2 1.4 3.4 3.2 4.2" stroke="#ffc4a0" stroke-width=".9" fill="none" stroke-linecap="round"/><rect x="10.6" y="13" width="2.8" height="3" fill="url(#gGold)" stroke="#4a1608" stroke-width=".7"/><ellipse cx="12" cy="17.2" rx="3.4" ry="1.6" fill="url(#gGold)" stroke="#4a1608" stroke-width=".8"/><path d="M6.6 22.7c.3-2.6 2.3-3.6 5.4-3.6s5.1 1 5.4 3.6z" fill="url(#gCup)" stroke="#4a1608" stroke-width=".9"/><circle cx="12" cy="21" r=".95" fill="#fff" stroke="#4a1608" stroke-width=".4"/>',
- espases:'<path d="M12 .4l2.8 11.9H9.2z" fill="url(#gSteel)" stroke="#1b4570" stroke-width="1"/><path d="M12 1.8v10.3" stroke="#2a5f90" stroke-width=".8"/><path d="M10.4 11.6L11.7 3" stroke="#fff" stroke-width=".5" opacity=".9"/><path d="M5.2 12.4c2.6 2.3 10.9 2.3 13.6 0" fill="none" stroke="#7e1a14" stroke-width="3" stroke-linecap="round"/><path d="M5.4 12.4c2.6 2.1 10.6 2.1 13.2 0" fill="none" stroke="#e0382c" stroke-width="1.7" stroke-linecap="round"/><circle cx="5" cy="12.3" r="1.3" fill="url(#gGold)" stroke="#5a3d00" stroke-width=".6"/><circle cx="19" cy="12.3" r="1.3" fill="url(#gGold)" stroke="#5a3d00" stroke-width=".6"/><circle cx="12" cy="13" r="1.3" fill="url(#gGold)" stroke="#5a3d00" stroke-width=".6"/><rect x="10.7" y="13.8" width="2.6" height="5.8" rx="1" fill="#c42d27" stroke="#4a0f0a" stroke-width=".7"/><path d="M10.8 15.2l2.4-.8M10.8 16.8l2.4-.8M10.8 18.4l2.4-.8" stroke="#4a0f0a" stroke-width=".5"/><circle cx="12" cy="21.4" r="2" fill="url(#gGold)" stroke="#5a3d00" stroke-width=".8"/><circle cx="12" cy="21.4" r=".8" fill="#2d63b8"/>',
- bastos:'<g transform="rotate(30 12 12)"><path d="M8 20c-2.2-.4-3.2-2-3.4-3.6 1.8.4 3.2 1.4 3.6 3z M16 19.4c2.2-.4 3.2-2 3.4-3.6-1.8.4-3.2 1.4-3.6 3z" fill="#2f8f2c" stroke="#1d5a18" stroke-width=".6"/><path d="M10 1.9c1.2-1.4 3.2-1.4 4.2 0 1.5 1.6 1.4 4.2.9 6.6-.4 2.6-.3 5 .4 7.6.5 1.9.3 4.2-1.1 5.4-1.1 1-2.7 1-3.7.2-1.4-1-1.6-3.2-1.3-5.2.2-2.4.5-4.6-.2-7C8.3 6.9 8.4 3.7 10 1.9z" fill="url(#gClub)" stroke="#2f5a10" stroke-width="1"/><ellipse cx="11" cy="5.4" rx="1.2" ry=".9" fill="#4a7a1a"/><ellipse cx="13.7" cy="9.4" rx="1.3" ry="1" fill="#4a7a1a"/><ellipse cx="10.9" cy="13.2" rx="1.2" ry=".9" fill="#4a7a1a"/><ellipse cx="13.1" cy="17.2" rx="1.1" ry=".9" fill="#4a7a1a"/><path d="M11.4 2.4c-.9 3.2 0 7.2.3 10.4M12.8 14c.2 2 .2 3.6-.2 5" stroke="#d6f598" stroke-width=".8" fill="none" stroke-linecap="round"/><path d="M9.4 6.8l-.8-.3M14.4 12l.8-.3M10 17l-.7.3" stroke="#2f5a10" stroke-width=".5"/></g>'
+ espases:'<path d="M12 .3L14.2 3.3 13.8 15H10.2L9.8 3.3z" fill="url(#gSteel)" stroke="#1b4570" stroke-width=".9" stroke-linejoin="round"/><path d="M12 2.4V15" stroke="#2a5f90" stroke-width=".7"/><path d="M10.7 14.2L10.9 4.6" stroke="#fff" stroke-width=".6" opacity=".9" stroke-linecap="round"/><path d="M3.7 13.2C4.1 16.2 7.2 16.6 9.6 15.7H14.4C16.8 16.6 19.9 16.2 20.3 13.2" fill="none" stroke="#3f2800" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.7 13.2C4.1 16.2 7.2 16.6 9.6 15.7H14.4C16.8 16.6 19.9 16.2 20.3 13.2" fill="none" stroke="url(#gGold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3.6" cy="13" r="1.5" fill="url(#gGold)" stroke="#3f2800" stroke-width=".6"/><circle cx="20.4" cy="13" r="1.5" fill="url(#gGold)" stroke="#3f2800" stroke-width=".6"/><path d="M8.4 15.9C7 20.4 9 22.6 12 22.6S17 20.4 15.6 15.9" fill="#b8231c" fill-opacity=".92" stroke="#3f2800" stroke-width="2.3" stroke-linejoin="round"/><path d="M8.4 15.9C7 20.4 9 22.6 12 22.6S17 20.4 15.6 15.9" fill="none" stroke="url(#gGold)" stroke-width="1.05"/><rect x="10.8" y="15.2" width="2.4" height="5.6" rx=".8" fill="#2d63b8" stroke="#10285a" stroke-width=".6"/><path d="M10.9 16.6h2.2M10.9 18.2h2.2" stroke="#9ec0f2" stroke-width=".5"/><circle cx="12" cy="22.7" r="1.2" fill="url(#gGold)" stroke="#3f2800" stroke-width=".6"/>',
+ bastos:flame(9,12.5,22,180+14,'g')+flame(15.5,12,22,-12,'r')
 };
 const ICON={};for(const k in PIPS)ICON[k]=`<svg viewBox="0 0 24 24">${PIPS[k]}</svg>`;
 const SUITC={oros:'#a67800',copes:'#c42d27',espases:'#2c5fa8',bastos:'#2a7d46'};
@@ -199,7 +212,7 @@ const LAY={
  8:[[35,32],[65,32],[35,57],[65,57],[35,83],[65,83],[35,108],[65,108]],
  9:[[35,32],[65,32],[35,57],[65,57],[50,70],[35,83],[65,83],[35,108],[65,108]]
 };
-function pip(s,x,y,z,rot){return `<g transform="translate(${x} ${y})${rot?' rotate(180)':''} scale(${z/24}) translate(-12 -12)">${PIPS[s]}</g>`}
+function pip(s,x,y,z,rot){const a=typeof rot==='number'?rot:0;return `<g transform="translate(${x} ${y})${a?' rotate('+a+')':''} scale(${z/24}) translate(-12 -12)">${PIPS[s]}</g>`}
 function barres(x,y,w,h){
   let g=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#gGold)" stroke="${OUT}" stroke-width=".8"/>`;
   for(let i=0;i<4;i++)g+=`<rect x="${(x+w*(2*i+1)/9).toFixed(2)}" y="${y}" width="${(w/9).toFixed(2)}" height="${h}" fill="#c8102e"/>`;
@@ -293,9 +306,30 @@ function laurel(){
     if(i%2===0)g+=`<circle cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" r="1.1" fill="#d6252b" stroke="#7a1010" stroke-width=".3"/>`}
   return g;
 }
+const HILT='<path d="M3.7 13.2C4.1 16.2 7.2 16.6 9.6 15.7H14.4C16.8 16.6 19.9 16.2 20.3 13.2" fill="none" stroke="#3f2800" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.7 13.2C4.1 16.2 7.2 16.6 9.6 15.7H14.4C16.8 16.6 19.9 16.2 20.3 13.2" fill="none" stroke="url(#gGold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3.6" cy="13" r="1.5" fill="url(#gGold)" stroke="#3f2800" stroke-width=".6"/><circle cx="20.4" cy="13" r="1.5" fill="url(#gGold)" stroke="#3f2800" stroke-width=".6"/><path d="M8.4 15.9C7 20.4 9 22.6 12 22.6S17 20.4 15.6 15.9" fill="#b8231c" fill-opacity=".92" stroke="#3f2800" stroke-width="2.3" stroke-linejoin="round"/><path d="M8.4 15.9C7 20.4 9 22.6 12 22.6S17 20.4 15.6 15.9" fill="none" stroke="url(#gGold)" stroke-width="1.05"/><rect x="10.8" y="15.2" width="2.4" height="5.6" rx=".8" fill="#2d63b8" stroke="#10285a" stroke-width=".6"/><path d="M10.9 16.6h2.2M10.9 18.2h2.2" stroke="#9ec0f2" stroke-width=".5"/><circle cx="12" cy="22.7" r="1.2" fill="url(#gGold)" stroke="#3f2800" stroke-width=".6"/>';
+function sword(x,y,len,k){
+  const L=len-9*k,top=y-len/2,base=top+L,bw=2.2*k;
+  return `<path d="M${x} ${top}L${x+bw} ${top+3.2*k}L${x+bw*.94} ${base}H${x-bw*.94}L${x-bw} ${top+3.2*k}z" fill="url(#gSteel)" stroke="#1b4570" stroke-width="${.9*k}" stroke-linejoin="round"/><path d="M${x} ${top+2.4*k}V${base}" stroke="#2a5f90" stroke-width="${.7*k}"/><path d="M${x-bw*.55} ${base-.8*k}L${x-bw*.5} ${top+5*k}" stroke="#fff" stroke-width="${.6*k}" opacity=".9" stroke-linecap="round"/><g transform="translate(${x-12*k} ${base-15*k}) scale(${k})">${HILT}</g>`;
+}
+const SWL={2:[[38,70,88,1.3],[62,70,88,1.3]],3:[[27,70,88,1.25],[50,70,88,1.25],[73,70,88,1.25]],
+ 4:[[35,45,58,1.15],[65,45,58,1.15],[35,97,58,1.15],[65,97,58,1.15]],
+ 5:[[33,42,56,1.12],[67,42,56,1.12],[33,98,56,1.12],[67,98,56,1.12],[50,70,70,1.12]],
+ 6:[[34,34,44,1.0],[66,34,44,1.0],[34,70,44,1.0],[66,70,44,1.0],[34,106,44,1.0],[66,106,44,1.0]],
+ 7:[[34,34,44,1.0],[66,34,44,1.0],[34,70,44,1.0],[66,70,44,1.0],[34,106,44,1.0],[66,106,44,1.0],[50,70,66,1.0]],
+ 8:[[34,32,40,.88],[66,32,40,.88],[34,57,40,.88],[66,57,40,.88],[34,83,40,.88],[66,83,40,.88],[34,108,40,.88],[66,108,40,.88]],
+ 9:[[34,32,40,.88],[66,32,40,.88],[34,57,40,.88],[66,57,40,.88],[34,83,40,.88],[66,83,40,.88],[34,108,40,.88],[66,108,40,.88],[50,70,60,.88]]};
+const FLL={
+ 2:[[40,42,58,160,'g'],[60,98,58,-20,'r']],
+ 3:[[27,70,60,192,'g'],[50,70,60,0,'r'],[73,70,60,168,'g']],
+ 4:[[34,42,52,200,'g'],[66,42,52,-20,'r'],[34,98,52,20,'r'],[66,98,52,160,'g']],
+ 5:[[34,40,48,205,'g'],[66,40,48,-25,'r'],[34,100,48,25,'r'],[66,100,48,155,'g'],[50,70,52,90,'y']],
+ 6:[[27,40,50,180,'g'],[50,40,50,0,'r'],[73,40,50,180,'g'],[27,100,50,0,'r'],[50,100,50,180,'g'],[73,100,50,0,'r']],
+ 7:[[27,38,48,180,'g'],[50,38,48,0,'r'],[73,38,48,180,'g'],[27,102,48,0,'r'],[50,102,48,180,'g'],[73,102,48,0,'r'],[50,70,58,90,'y']],
+ 8:[[33,30,40,180,'g'],[67,30,40,0,'r'],[33,57,40,0,'r'],[67,57,40,180,'g'],[33,83,40,180,'g'],[67,83,40,0,'r'],[33,110,40,0,'r'],[67,110,40,180,'g']],
+ 9:[[27,34,42,180,'g'],[50,34,42,0,'r'],[73,34,42,180,'g'],[27,70,42,0,'r'],[50,70,48,90,'y'],[73,70,42,0,'r'],[27,106,42,180,'g'],[50,106,42,0,'r'],[73,106,42,180,'g']]};
 function cardSVG(c){
   const s=c.s,r=c.r,col=SUITC[s];
-  const idx=`<text x="15" y="23" font-size="22" font-weight="800" text-anchor="middle" fill="#111" stroke="#fff" stroke-width=".6" paint-order="stroke" font-family="Georgia,serif">${r}</text>${pip(s,15,36,14)}`;
+  const idx=`<text x="15" y="23" font-size="${r>=10?18:22}" font-weight="800" text-anchor="middle" fill="#111" stroke="#fff" stroke-width=".6" paint-order="stroke" font-family="Georgia,serif">${r}</text>${pip(s,15,36,14)}`;
   let g=`<rect x="1" y="1" width="98" height="138" rx="9" fill="url(#gPaper)" stroke="#2a2a2a" stroke-width="1.6"/>`;
   g+=`<rect x="5" y="5" width="90" height="130" rx="4" fill="none" stroke="${col}" stroke-width="1.1"/><rect x="7.5" y="7.5" width="85" height="125" rx="2.5" fill="none" stroke="#2a2a2a" stroke-width=".6" stroke-dasharray="12 4"/>`;
   const dia=(x,y)=>`<path d="M${x} ${y-5}l5 5-5 5-5-5z" fill="#c8102e" stroke="#2a1a0a" stroke-width=".6"/><path d="M${x} ${y-2.6}l2.6 2.6-2.6 2.6-2.6-2.6z" fill="#1d4f91"/><circle cx="${x}" cy="${y}" r=".9" fill="#f6c500"/>`;
@@ -303,13 +337,19 @@ function cardSVG(c){
   g+=idx+`<g transform="rotate(180 50 70)">${idx}</g>`;
   if(r===1){
     g+=`<g opacity=".35" stroke="${col}" stroke-width=".7">${Array.from({length:24},(_,i)=>{const a=i*Math.PI/12;return `<path d="M${(50+19*Math.cos(a)).toFixed(1)} ${(70+24*Math.sin(a)).toFixed(1)}L${(50+23*Math.cos(a)).toFixed(1)} ${(70+29*Math.sin(a)).toFixed(1)}"/>`}).join('')}</g>`;
-    g+=laurel()+`<ellipse cx="50" cy="70" rx="22" ry="28" fill="#fff6d6" stroke="${col}" stroke-width="1.3"/><ellipse cx="50" cy="70" rx="19.5" ry="25.5" fill="none" stroke="${col}" stroke-width=".5" stroke-dasharray="1.2 1.2"/>`+pip(s,50,68,42);
+    if(s==='espases'||s==='bastos'){
+      const rib=(d,w,c)=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`;
+      g+=laurel()+(s==='espases'?`<g transform="rotate(-26 50 68)">${sword(50,68,112,1.55)}</g>`:flame(40,66,84,200,'g')+flame(62,70,84,-18,'r')+flame(51,72,60,90,'y'));
+      if(s==='espases')g+=rib('M30 92C44 80 38 70 56 62',4.2,'#5a0a0a')+rib('M30 92C44 80 38 70 56 62',2.6,'#d6252b')+rib('M56 62C66 58 64 50 72 46',3.4,'#5a0a0a')+rib('M56 62C66 58 64 50 72 46',2,'#f6c500')+rib('M27 96q-6 5-4 11M31 97q1 7-3 11',1.6,'#d6252b');
+    }else g+=laurel()+`<ellipse cx="50" cy="70" rx="22" ry="28" fill="#fff6d6" stroke="${col}" stroke-width="1.3"/><ellipse cx="50" cy="70" rx="19.5" ry="25.5" fill="none" stroke="${col}" stroke-width=".5" stroke-dasharray="1.2 1.2"/>`+pip(s,50,68,42);
     g+=`<path d="M25 104q25 9 50 0l4 8q-29 9-58 0z" fill="url(#gGold)" stroke="#2a1a0a" stroke-width="1"/><path d="M25 104l-5 4 5 4M75 104l5 4-5 4" fill="#c8102e" stroke="#2a1a0a" stroke-width=".8"/><text x="50" y="111" font-size="8.6" font-weight="800" text-anchor="middle" fill="#9a0f1c" letter-spacing="2" font-family="Georgia,serif">AS</text>`;
     g+=`<path d="M40 11h20v10q0 6.4-10 9.4-10-3-10-9.4z" fill="#f6c500" stroke="#2a1a0a" stroke-width="1"/><g fill="#c8102e">${[0,1,2,3].map(i=>`<rect x="${(40+20*(2*i+1)/9).toFixed(1)}" y="11.5" width="2.2" height="17"/>`).join('')}</g><path d="M40 11h20v10q0 6.4-10 9.4-10-3-10-9.4z" fill="none" stroke="#2a1a0a" stroke-width="1"/>`;
   }else if(r>=10){
     g+=`<g transform="translate(50 70) scale(1.1) translate(-50 -70)">${figure(r,s)}</g>`;
   }else{
-    g+=LAY[r].map(([x,y])=>pip(s,x,y,r>=8?19:21,y>70)).join('');
+    if(s==='espases')g+=SWL[r].slice().reverse().map(a=>sword(...a)).join('');
+    else if(s==='bastos')g+=FLL[r].map(a=>flame(...a)).join('');
+    else g+=LAY[r].map(([x,y])=>pip(s,x,y,r>=8?19:21)).join('');
     if(r===9)g+=`<text x="50" y="124" font-size="6.5" font-weight="700" text-anchor="middle" fill="${col}" letter-spacing="1">MANILLA</text>`;
   }
   return `<svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">${g}</svg>`;
@@ -456,7 +496,7 @@ function legal(hand,trick,trump,seat){
   }
   if(partnerWin)return hand.slice();
   const tr=hand.filter(c=>c.s===trump);
-  if(tr.length){const over=tr.filter(c=>beats(c,w.card,trump));return over.length?over:tr}
+  if(tr.length){const over=tr.filter(c=>beats(c,w.card,trump));return over.length?over:hand.slice()}
   return hand.slice();
 }
 function explain(){
@@ -473,7 +513,7 @@ function explain(){
   const tr=hand.filter(c=>c.s===G.trump);
   if(tr.length){
     const over=tr.filter(c=>beats(c,w.card,G.trump));
-    return over.length?'No tens el pal: has de fallar amb triomf i sobrefallar.':'No tens el pal: has de fallar amb triomf (no pots sobrefallar).';
+    return over.length?'No tens el pal: has de fallar amb triomf i sobrefallar.':'No tens el pal i no pots sobrefallar el triomf que ja hi ha: pots jugar qualsevol carta.';
   }
   return `No tens ${SUITN[lead]} ni triomf: pots jugar qualsevol carta.`;
 }
@@ -575,7 +615,7 @@ function doubleStage(stage){
       const x=hs[i];
       const no=()=>{setActions('',[]);ask(i+1)};
       if(x===0){
-        say(`Vols dir «${label}»?`,true);
+        say(`Vols dir «${label}»? ${NAMES[G.chooser]===undefined?'':(G.chooser===0?'El triomf el vas triar tu.':'El triomf el va triar '+NAMES[G.chooser]+'.')}`,true);
         if(NET.started)netAll(()=>({t:'say',text:`${NET.names[0]} decideix si diu «${label}»…`}));
         setActions(`${label}?`,[{label:label+'!',fn:()=>yes(0)},{label:'No',sec:true,fn:no}]);
       }else{
@@ -864,14 +904,14 @@ function render(){
   $('hp-them').textContent=showHP?`mà: ${G.cardPts[1]+G.tricks[1]}`:'';
   $('lastbtn').style.display=G.last?'block':'none';
   const tr=$('trump');
-  tr.innerHTML=G.trump?`<div class="tl">${G.trump==='B'?'SENSE TRIOMF':'TRIOMF'}</div><div class="tv"${G.trump!=='B'?` style="border-color:${COL[G.trump]}"`:''}>${G.trump==='B'?'Butifarra':ICON[G.trump]+SUITN[G.trump]}${G.mult>1?`<span class="badge">x${G.mult}</span>`:''}</div>`:'<div class="tl">TRIOMF</div><div class="tv" style="font-size:14px;opacity:.7">per triar…</div>';
+  tr.innerHTML=G.trump?`<div class="tl">${G.trump==='B'?'SENSE TRIOMF':'TRIOMF'}</div><div class="tv"${G.trump!=='B'?` style="border-color:${COL[G.trump]}"`:''}>${G.trump==='B'?'Butifarra':ICON[G.trump]+SUITN[G.trump]}${G.mult>1?`<span class="badge">x${G.mult}</span>`:''}</div>${G.chooser!=null?`<div class="ch ${team(G.chooser)===0?'us':'them'}">${G.chooser===0?'Ho has triat tu':'Ho tria '+NAMES[G.chooser]}${G.chooser===G.dealer?' · directe':' · després de passar '+(G.dealer===0?'tu':NAMES[G.dealer])}</div>`:''}`:'<div class="tl">TRIOMF</div><div class="tv" style="font-size:14px;opacity:.7">per triar…</div>';
   let tm=$('tmark');if(!tm){tm=document.createElement('div');tm.id='tmark';$('center').insertBefore(tm,$('center').firstChild)}
   tm.innerHTML=G.trump&&G.trump!=='B'?ICON[G.trump]:(G.trump==='B'?'<b>B</b>':'');
   if(G.trump!==G.annT){
     G.annT=G.trump;
     if(G.trump){const a=$('ann');a.innerHTML=(G.trump==='B'?'':ICON[G.trump])+`<div><small>${G.trump==='B'?'ES JUGA':'TRIOMF'}</small>${G.trump==='B'?'Butifarra (x2)':SUITN[G.trump]}</div>`;a.style.display='flex';a.style.animation='none';a.offsetHeight;a.style.animation='annin 2.2s ease-out forwards';clearTimeout(window.__annT);window.__annT=setTimeout(()=>{a.style.display='none'},2300)}
   }
-  for(let i=1;i<=3;i++){$('n'+i).textContent=G.hands[i].length;$('seat'+i).classList.toggle('turn',G.phase==='play'&&G.turn===i&&!G.busy)}
+  for(let i=1;i<=3;i++){const nm=document.querySelector('#seat'+i+' .nm2');if(nm)nm.innerHTML=NAMES[i].replace(/</g,'&lt;')+(i===2?' (company)':'')+(G.trump&&G.chooser===i?`<span class="chb">triomf</span>`:'');$('n'+i).textContent=G.hands[i].length;$('seat'+i).classList.toggle('turn',G.phase==='play'&&G.turn===i&&!G.busy)}
   let win=null;if(G.trick.length===4)win=winnerOf(G.trick,G.trump).seat;
   for(let i=0;i<4;i++){
     const s=$('c'+i);s.innerHTML='';
@@ -967,7 +1007,7 @@ function openRules(){
    <li>Punts: manilla 5, as 4, rei 3, cavall 2, sota 1, i 1 per cada basa (72 en total).</li>
    <li>Qui reparteix tria el triomf o <b>Butifarra</b> (sense triomf, punts x2). Pot passar i llavors tria la seva company.</li>
    <li>Els rivals poden <b>contrar</b> (x2); els altres, <b>recontrar</b> (x2) i els rivals, <b>Sant Vicenç</b> (x2, només amb triomf).</li>
-   <li>Cal servir el pal. Si el rival va guanyant, has de superar-lo si pots; si no tens el pal, has de fallar amb triomf (i sobrefallar si pots). Si guanya la teva company, pots jugar el que vulguis.</li>
+   <li>Cal servir el pal. Si el rival va guanyant, has de superar-lo si pots; si no tens el pal, has de fallar amb triomf i sobrefallar si pots; si no pots sobrefallar el triomf que ja hi ha, pots tirar el que vulguis. Si guanya la teva company, pots jugar el que vulguis.</li>
    <li>Guanya la mà qui passa de 36 punts; es puntua la diferència amb 36 multiplicada pels doblatges. La partida és a 101.</li>
   </ul>
   <div class="row"><button class="btn" id="bk">Enrere</button></div>`);
@@ -1135,7 +1175,7 @@ function guestAsk(m){
     setActions(m.canPass?'Tria el triomf o passa':'Has de triar el triomf',b);
     $('msg').textContent=m.canPass?'Et toca triar el triomf.':'La teva company ha passat: tria tu.';
   }else if(m.k==='dbl'){
-    $('msg').textContent=`Vols dir «${m.label}»?`;
+    $('msg').textContent=`Vols dir «${m.label}»? ${G&&G.chooser!=null?(G.chooser===0?'El triomf el vas triar tu.':'El triomf el va triar '+NAMES[G.chooser]+'.'):''}`;
     setActions(m.label+'?',[{label:m.label+'!',fn:()=>{setActions('',[]);netSend({t:'dbl',v:true})}},{label:'No',sec:true,fn:()=>{setActions('',[]);netSend({t:'dbl',v:false})}}]);
   }
 }
